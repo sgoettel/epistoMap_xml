@@ -6,6 +6,7 @@ import random
 import requests
 import re
 
+# your filename here
 input_file = "epistoMap_input.xml"
 
 # Constants which you can adjust here
@@ -176,7 +177,7 @@ with open(input_file, "rb") as file:
 letters = parse_xml_data(xml_data)
 
 # Initialize
-world_map = folium.Map(location=[50.0, 10.0], tiles="cartodb positron", zoom_start=5) # change the map tile, center and initial zoom here
+world_map = folium.Map(location=[50.0, 10.0], tiles="cartodb positron", zoom_start=5)
 marker_cluster_senders = FastMarkerCluster(data=[], name="Senders")
 marker_cluster_receivers = FastMarkerCluster(data=[], name="Receivers")
 location_pairs = populate_location_pairs(letters)
