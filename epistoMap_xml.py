@@ -77,6 +77,9 @@ def get_coordinates_from_place_id(place_id):
     return None, None
 
 def extract_place_id_from_url(url: str) -> str:
+    if url is None:
+        return None
+    
     match = re.search(r'\d+$', url.rstrip('/'))
     if match:
         return match.group()
