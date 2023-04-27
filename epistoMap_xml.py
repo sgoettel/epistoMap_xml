@@ -142,17 +142,7 @@ def parse_xml_data(xml_data):
         else:
             date = date_sent.text
 
-        if not date:
-            date_received = received.find("tei:date", namespaces={'tei': 'http://www.tei-c.org/ns/1.0'})
-            date_received_attributes = date_received.attrib
-            if 'when' in date_received_attributes:
-                date = date_received_attributes['when']
-            elif 'notBefore' in date_received_attributes:
-                date = date_received_attributes['notBefore']
-            elif 'notAfter' in date_received_attributes:
-                date = date_received_attributes['notAfter']
-            else:
-                date = date_received.text
+
 
         data.append({
             'sender_id': sender_id,
