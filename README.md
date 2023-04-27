@@ -10,7 +10,7 @@ To run the script, simply execute it in your terminal or command prompt:
 
 `$ python3 epistoMap.py_xml` 
 
-Make sure the input XML file (`epistoMap_input.xml`)is in the same directory as the script. After the script finishes running, you'll find the generated HTML file (`epistoMap_output_xml.html`) in the same directory.
+Make sure the input XML file (`epistoMap_input.xml`) is in the same directory as the script. After the script finishes running, you'll find the generated HTML file (`epistoMap_output_xml.html`) in the same directory.
 
 ## Prerequisites
 
