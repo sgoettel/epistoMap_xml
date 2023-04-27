@@ -101,8 +101,8 @@ def parse_xml_data(xml_data):
            sent.find("tei:date", namespaces={'tei': 'http://www.tei-c.org/ns/1.0'}) is None or \
            (received.find("tei:persName", namespaces={'tei': 'http://www.tei-c.org/ns/1.0'}) is None and
             received.find("tei:orgName", namespaces={'tei': 'http://www.tei-c.org/ns/1.0'}) is None) or \
-           received.find("tei:placeName", namespaces={'tei': 'http://www.tei-c.org/ns/1.0'}) is None or \
-           received.find("tei:date", namespaces={'tei': 'http://www.tei-c.org/ns/1.0'}) is None:
+           received.find("tei:placeName", namespaces={'tei': 'http://www.tei-c.org/ns/1.0'}) is None:
+           
             continue
 
         sender = sent.find("tei:persName", namespaces={'tei': 'http://www.tei-c.org/ns/1.0'})
