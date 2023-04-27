@@ -10,7 +10,7 @@ To run the script, simply execute it in your terminal or command prompt:
 
 `$ python3 epistoMap.py_xml` 
 
-Make sure the input XML file is in the same directory as the script. After the script finishes running, you'll find the generated HTML file (`epistoMap_output_xml.html`) in the same directory.
+Make sure the input XML file (`epistoMap_input.xml`)is in the same directory as the script. After the script finishes running, you'll find the generated HTML file (`epistoMap_output_xml.html`) in the same directory.
 
 ## Prerequisites
 
@@ -23,7 +23,7 @@ You can install these packages using pip:
 ## Input
 
 
-The input XML file should follow the TEI encoding guidelines and contain `<correspDesc>` elements with metadata about the correspondences. Each `<correspDesc>` element should have `<correspAction>` elements for "sent" and "received" actions, including `<persName>`, `<placeName>`, and `<date>` elements. To identify the location of a sender/receiver, it's essential to include a GeoNames URL in the `@ref` attribute of the `<placeName>` element.
+The input XML (`epistoMap_input.xml`) file should follow the TEI encoding guidelines and contain `<correspDesc>` elements with metadata about the correspondences. Each `<correspDesc>` element should have `<correspAction>` elements for "sent" and "received" actions, including `<persName>`, `<placeName>`, and `<date>` elements. To identify the location of a sender/receiver, it's essential to include a GeoNames URL in the `@ref` attribute of the `<placeName>` element.
 
 Example input XML structure:
 
