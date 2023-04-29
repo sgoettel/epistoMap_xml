@@ -5,9 +5,13 @@ from lxml import etree
 import random
 import requests
 import re
+import argparse
 
-# your filename here
-input_file = "epistoMap_input.xml"
+# Use argparse to parse the command-line arguments
+parser = argparse.ArgumentParser(description="Create a map visualization from an XML file.")
+parser.add_argument("input_file", help="Path to the input XML file.")
+args = parser.parse_args()
+input_file = args.input_file
 
 # Constants which you can adjust here
 OFFSET = 0.002
@@ -158,6 +162,10 @@ def parse_xml_data(xml_data):
             'receiver_place_long': receiver_place_long,
             'date_sent': date
         })
+
+    total_corresp_desc = len(correspondences)
+    successfully_parsed_corresp_desc = len(data)
+    print(f"Done. Out of {total_corresp_desc} <correspDesc> elements, {successfully_parsed_corresp_desc} contained all necessary data to visualize on the map.")
 
     return pd.DataFrame(data)
 
