@@ -6,13 +6,14 @@ import random
 import requests
 import re
 import argparse
+import os
 
 # Use argparse to parse the command-line arguments
 parser = argparse.ArgumentParser(description="Create a map visualization from an XML file.")
-parser.add_argument("input_file", help="Path to the input XML file.")
+parser.add_argument("input_files", nargs="+", help="One or more input XML files.")
 parser.add_argument("--dry-run", action="store_true", help="Perform a dry run without calling the GeoNames API.")
 args = parser.parse_args()
-input_file = args.input_file
+input_files = args.input_files
 
 # Constants which you can adjust here
 OFFSET = 0.002
@@ -169,17 +170,19 @@ def parse_xml_data(xml_data):
 
     total_corresp_desc = len(correspondences)
     successfully_parsed_corresp_desc = len(data)
-    print(f"Done. Out of {total_corresp_desc} <correspDesc> elements, {successfully_parsed_corresp_desc} contained all necessary data to visualize on the map.")
+    
+    return pd.DataFrame(data), total_corresp_desc, successfully_parsed_corresp_desc
 
-    return pd.DataFrame(data)
+# Process each input file
+for input_file in args.input_files:
+    with open(input_file, "rb") as file:
+        xml_data = file.read()
 
-#Read XML data from file
+    # Parse XML data
+    letters, total_corresp_desc, successfully_parsed_corresp_desc = parse_xml_data(xml_data)
 
-with open(input_file, "rb") as file:
-    xml_data = file.read()
-
-# input data here
-letters = parse_xml_data(xml_data)
+    # Update print statement to show input file name and number of successful correspondences
+    print(f"Done. File: {input_file} - Out of {total_corresp_desc} <correspDesc> elements, {successfully_parsed_corresp_desc} contained all necessary data to visualize on the map.")
 
 # Initialize
 world_map = folium.Map(location=[50.0, 10.0], tiles="cartodb positron", zoom_start=5)
@@ -226,4 +229,5 @@ world_map.add_child(marker_cluster_receivers)
 folium.LayerControl().add_to(world_map)
 
 # output data here
-world_map.save("epistoMap_output_xml.html")
+output_filename = f"epistoMap_output_{os.path.splitext(os.path.basename(input_file))[0]}.html"
+world_map.save(output_filename)
