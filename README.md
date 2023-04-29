@@ -2,15 +2,19 @@
 
 This script creates an interactive map visualization of letters sent between people from different locations using [Folium](https://python-visualization.github.io/folium/). It reads input data from a XML file, processes it, and generates an HTML file containing the map with sender and receiver markers and polylines connecting them. If your input file is a CSV, consider checking out my other script [epistoMap (CSV)](https://github.com/sgoettel/epistoMap_csv)
 
-<img src="/image/epistomap_humboldt.png" alt="Output of the example CSV, edition humboldt digital" width="600" height="500">
+<img src="/image/epistomap_humboldt.png" alt="Output of the example XML, edition humboldt digital" width="600" height="500">
 
 >**Note** While it functions as intended, there are some areas for improvement and fine-tuning that I am working on as a beginner in this field. But since it is not that easy to get a "out of the box solution" for visualizing correspondence, I think it is still a good approach. If you would like to learn more about the features that I am working to implement and the challenges I am facing, please read the docs [at epistoMap CSV](https://github.com/sgoettel/epistoMap_csv#things-to-implement), otherwise: happy mapping!
 
-To run the script, simply execute it in your terminal or command prompt:
+**To run the script, simply execute it in your terminal or command prompt:**
 
-`$ python3 epistoMap.py_xml path/to/your/file.xml` 
+`$ python3 epistoMap_xml.py path/to/your/file1.xml` 
 
-After the script finishes running, you'll find the generated HTML file (`epistoMap_output_xml.html`) in the same directory.
+After the script finishes running, you'll find the generated HTML files in the same directory. The output files will be named using the format `epistoMap_output_[originalfilename].html`.
+
+**If you want to test one or more XML files**, you can do a dry-run mode, which can be enabled using `--dry-run`. In this mode, the script will parse the input XML files and provide a summary of the number of usable <correspDesc> elements, e.g.
+
+`$ python3 epistoMap_xml.py --dry-run file1.xml file2.xml file3.xml` etc.
 
 ## Prerequisites
 
