@@ -54,7 +54,11 @@ The script reads the input data using pandas and processes it to extract unique 
 
 The script extracts GeoNames IDs from the @ref attribute of the `<placeName>` elements in the input XML data. It then uses these IDs to query the GeoNames API, which returns the corresponding geographical coordinates.
 
-The script employs the folium library to create an interactive map with two marker clusters: one for senders and another for receivers. It uses a custom `add_offset` function to slightly offset the markers to prevent overlapping when multiple individuals are at the same location.
+The script employs the folium library to create an interactive map with two marker clusters: one for senders and another for receivers.
+
+Inconsistencies in sender-receiver connections visualization: In my first approach, I used some `add_offset` function to slightly offset the markers, preventing overlapping when multiple individuals were at the same location. However, this approach sometimes resulted in polylines and markers not being fully connected.
+
+To address this issue, I implemented a modified approach that maintains consistent connections between polylines and markers using dictionaries (`offset_sender_coords` and `offset_receiver_coords`). These dictionaries store the offset coordinates for each sender and receiver, ensuring that polylines are drawn using the same offset coordinates as the markers. While this approach may still have overlapping markers in some cases, it provides a more accurate representation of sender-receiver connections.
 
 ## Output
 
