@@ -28,6 +28,9 @@ of a polyline on the map. The weight is proportional to the number
 of letters exchanged between two people, and is calculated by multiplying 
 the number of letters by this constant."""
 
+def random_color():
+    return f"#{''.join([random.choice('0123456789ABCDEF') for _ in range(6)])}"
+
 def add_offset(lat, lng, offset):
     new_lat = lat + random.uniform(-offset, offset)
     new_lng = lng + random.uniform(-offset, offset)
@@ -224,7 +227,7 @@ for (sender_id, sender_lat, sender_long, receiver_id, receiver_lat, receiver_lon
             offset_sender_coords[sender_key],
             offset_receiver_coords[receiver_key],
         ],
-        color="black",
+        color=random_color(),
         weight=polyline_weight,
         popup=folium.Popup(polyline_popup, max_width=300),
     ).add_to(world_map)
