@@ -189,23 +189,30 @@ world_map = folium.Map(location=[50.0, 10.0], tiles="cartodb positron", zoom_sta
 marker_cluster_senders = FastMarkerCluster(data=[], name="Senders")
 marker_cluster_receivers = FastMarkerCluster(data=[], name="Receivers")
 location_pairs = populate_location_pairs(letters)
+
 sender_markers = {}
 receiver_markers = {}
 
+offset_sender_coords = {}
+offset_receiver_coords = {}
+
 # Loop over the location_pairs dictionary and create markers and polylines
 for (sender_id, sender_lat, sender_long, receiver_id, receiver_lat, receiver_long), data in location_pairs.items():
-    offset_sender_lat, offset_sender_long = add_offset(sender_lat, sender_long, OFFSET)
-    offset_receiver_lat, offset_receiver_long = add_offset(receiver_lat, receiver_long, OFFSET)
-
     sender_key = (sender_id, sender_lat, sender_long)
+    if sender_key not in offset_sender_coords:
+        offset_sender_coords[sender_key] = add_offset(sender_lat, sender_long, OFFSET)
+
+    receiver_key = (receiver_id, receiver_lat, receiver_long)
+    if receiver_key not in offset_receiver_coords:
+        offset_receiver_coords[receiver_key] = add_offset(receiver_lat, receiver_long, OFFSET)
+
     if sender_key not in sender_markers:
-        sender_marker = create_sender_marker(location=[offset_sender_lat, offset_sender_long], name=data["sender_name"])
+        sender_marker = create_sender_marker(location=offset_sender_coords[sender_key], name=data["sender_name"])
         sender_markers[sender_key] = sender_marker
         marker_cluster_senders.add_child(sender_marker)
 
-    receiver_key = (receiver_id, receiver_lat, receiver_long)
     if receiver_key not in receiver_markers:
-        receiver_marker = create_receiver_marker(location=[offset_receiver_lat, offset_receiver_long], name=data["receiver_name"])
+        receiver_marker = create_receiver_marker(location=offset_receiver_coords[receiver_key], name=data["receiver_name"])
         receiver_markers[receiver_key] = receiver_marker
         marker_cluster_receivers.add_child(receiver_marker)
 
@@ -214,16 +221,16 @@ for (sender_id, sender_lat, sender_long, receiver_id, receiver_lat, receiver_lon
 
     folium.PolyLine(
         locations=[
-            (offset_sender_lat, offset_sender_long),
-            (offset_receiver_lat, offset_receiver_long),
+            offset_sender_coords[sender_key],
+            offset_receiver_coords[receiver_key],
         ],
         color="black",
         weight=polyline_weight,
         popup=folium.Popup(polyline_popup, max_width=300),
     ).add_to(world_map)
 
-# Add marker clusters to map and create layer control
 
+# Add marker clusters to map and create layer control
 world_map.add_child(marker_cluster_senders)
 world_map.add_child(marker_cluster_receivers)
 folium.LayerControl().add_to(world_map)
