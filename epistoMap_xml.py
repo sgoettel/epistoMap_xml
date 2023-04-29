@@ -10,6 +10,7 @@ import argparse
 # Use argparse to parse the command-line arguments
 parser = argparse.ArgumentParser(description="Create a map visualization from an XML file.")
 parser.add_argument("input_file", help="Path to the input XML file.")
+parser.add_argument("--dry-run", action="store_true", help="Perform a dry run without calling the GeoNames API.")
 args = parser.parse_args()
 input_file = args.input_file
 
@@ -61,6 +62,9 @@ def populate_location_pairs(letters):
 
 
 def get_coordinates_from_place_id(place_id):
+    if args.dry_run:
+        return 0.0, 0.0
+    
     url = f"https://sws.geonames.org/{place_id}/about.rdf"
     response = requests.get(url)
 
