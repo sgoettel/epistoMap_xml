@@ -157,7 +157,7 @@ def parse_xml_data(xml_data):
         else:
             date = date_sent.text
 
-
+        ref = corresp.get("ref")
 
         data.append({
             'sender_id': sender_id,
@@ -168,7 +168,8 @@ def parse_xml_data(xml_data):
             'receiver_name': receiver_name,
             'receiver_place_lat': receiver_place_lat,
             'receiver_place_long': receiver_place_long,
-            'date_sent': date
+            'date_sent': date,
+            'refs': [ref] if ref else []
         })
 
     total_corresp_desc = len(correspondences)
@@ -219,9 +220,22 @@ for (sender_id, sender_lat, sender_long, receiver_id, receiver_lat, receiver_lon
         receiver_markers[receiver_key] = receiver_marker
         marker_cluster_receivers.add_child(receiver_marker)
 
-    polyline_weight = POLYLINE_WEIGHT_MULTIPLIER * data["count"]
-    polyline_popup = f"{data['sender_name']} to {data['receiver_name']} on " + " and ".join([f"{date}" for date in data["dates"]])
+    # Initialize an empty list to store formatted date strings and add them as URL in popup
+    dates_text = []
+    for date, ref in zip(data["dates"], letters["refs"]):
 
+        if ref:
+            dates_text.append(f'<a href="{ref[0]}" target="_blank">{date}</a>')
+        else:
+            dates_text.append(str(date))
+
+    # Create a string with sender, receiver, and formatted dates for the popup
+    polyline_popup = f"{data['sender_name']} to {data['receiver_name']} on " + " and ".join(dates_text)
+
+    # Calculate the polyline weight based on the count of letters
+    polyline_weight = POLYLINE_WEIGHT_MULTIPLIER * data["count"]
+
+    # Create a PolyLine on the map connecting the sender and receiver locations
     folium.PolyLine(
         locations=[
             offset_sender_coords[sender_key],
