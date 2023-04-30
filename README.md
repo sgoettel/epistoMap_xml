@@ -50,15 +50,13 @@ Any `<correspDesc>` element missing essential information, such as `<persName>`,
 
 ## Processing
 
-The script reads the input data using pandas and processes it to extract unique sender-receiver pairs. It groups the letters based on sender and receiver IDs, ensuring that a sender or receiver is only displayed once when they are at the exact same location.
-
-The script extracts GeoNames IDs from the @ref attribute of the `<placeName>` elements in the input XML data. It then uses these IDs to query the GeoNames API, which returns the corresponding geographical coordinates.
-
-The script employs the folium library to create an interactive map with two marker clusters: one for senders and another for receivers.
-
-Inconsistencies in sender-receiver connections visualization: In my first approach, I used some random `add_offset` function to slightly offset the markers, preventing overlapping when multiple individuals were at the same location, but this approach sometimes resulted in polylines and markers not being fully connected.
-
-To address this issue, I implemented a modified approach that maintains consistent connections between polylines and markers using dictionaries (`offset_sender_coords` and `offset_receiver_coords`). These dictionaries store the offset coordinates for each sender and receiver, ensuring that polylines are drawn using the same offset coordinates as the markers. While this approach may still have overlapping markers in some cases, it provides a more accurate representation of sender-receiver connections.
+- The script reads the input data using pandas and processes it to extract unique sender-receiver pairs. It employs the folium library to create an interactive map with two marker clusters: one for senders and another for receivers.
+- The script allows users to adjust certain constants, such as the `OFFSET` and `POLYLINE_WEIGHT_MULTIPLIER`. The `OFFSET` is used to randomly shift the location of markers on the map, preventing overlapping markers when they are located at the same coordinates.
+- The script extracts GeoNames IDs from the `@ref` attribute of the `<placeName>` elements in the input XML data. It then uses these IDs to query the GeoNames API.
+- The `populate_location_pairs()` function creates a dictionary that holds the necessary information for each unique sender-receiver pair.
+- Polylines representing correspondences are assigned random colors.
+- When clicking on a polyline, a popup appears displaying information about the correspondence, including the sender's and receiver's names, and the date(s) of the correspondence. If a `<correspDesc>` element contains a `@ref` URL, then the URL will be saved as a link for the respective date in the popup.
+- The script groups the letters based on sender and receiver IDs, ensuring that a sender or receiver is only displayed once when they are at the exact same location.
 
 ## Output
 
