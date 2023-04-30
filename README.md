@@ -56,7 +56,7 @@ The script extracts GeoNames IDs from the @ref attribute of the `<placeName>` el
 
 The script employs the folium library to create an interactive map with two marker clusters: one for senders and another for receivers.
 
-Inconsistencies in sender-receiver connections visualization: In my first approach, I used some `add_offset` function to slightly offset the markers, preventing overlapping when multiple individuals were at the same location. However, this approach sometimes resulted in polylines and markers not being fully connected.
+Inconsistencies in sender-receiver connections visualization: In my first approach, I used some random `add_offset` function to slightly offset the markers, preventing overlapping when multiple individuals were at the same location, but this approach sometimes resulted in polylines and markers not being fully connected.
 
 To address this issue, I implemented a modified approach that maintains consistent connections between polylines and markers using dictionaries (`offset_sender_coords` and `offset_receiver_coords`). These dictionaries store the offset coordinates for each sender and receiver, ensuring that polylines are drawn using the same offset coordinates as the markers. While this approach may still have overlapping markers in some cases, it provides a more accurate representation of sender-receiver connections.
 
