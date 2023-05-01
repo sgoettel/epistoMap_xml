@@ -4,7 +4,7 @@ This script creates an interactive map visualization of letters sent between peo
 
 <img src="/image/epistomap_humboldt.png" alt="Output of the example XML, edition humboldt digital" width="600" height="500">
 
->**Note** While it functions as intended, there are some areas for improvement and fine-tuning that I am working on as a beginner in this field. But since it is not that easy to get a "out of the box solution" for visualizing correspondence, I think it is still a good approach. If you would like to learn more about the features that I am working to implement and the challenges I am facing, please read the docs [at epistoMap CSV](https://github.com/sgoettel/epistoMap_csv#things-to-implement), otherwise: happy mapping!
+>**Note** While it functions as intended, there are some areas for improvement and fine-tuning that I am working on as a beginner in this field. But since it is not that easy to get a "out of the box solution" for visualizing correspondence, I think it is still a good approach.
 
 **To run the script, simply execute it in your terminal or command prompt:**
 
@@ -46,18 +46,15 @@ Example input XML structure:
 </correspDesc>
 ~~~
 
-Any `<correspDesc>` element missing essential information, such as `<persName>`, `<placeName>`, or `<date>`, is skipped! Otherwise there wouldn't be an accurate visualization.
+Any `<correspDesc>` element missing essential information is skipped! Otherwise there wouldn't be an accurate visualization.
 
 ## Processing
 
 - The script reads the input data using pandas and processes it to extract unique sender-receiver pairs. It employs the folium library to create an interactive map with two marker clusters: one for senders and another for receivers.
-- The script allows users to adjust certain constants, such as the `OFFSET` and `POLYLINE_WEIGHT_MULTIPLIER`. The `OFFSET` is used to randomly shift the location of markers on the map, preventing overlapping markers when they are located at the same coordinates.
+- The script allows users to adjust certain constants, such as the `OFFSET` and `POLYLINE_WEIGHT_MULTIPLIER`. The `OFFSET` is used to randomly shift the location of markers on the map, preventing overlapping markers when they are located at the same coordinates. The `POLYLINE_WEIGHT_MULTIPLIER` is a constant used to adjust the thickness of the polylines representing correspondences, with a higher number of correspondences between sender/receiver resulting in a thicker polyline.
 - The script extracts GeoNames IDs from the `@ref` attribute of the `<placeName>` elements in the input XML data. It then uses these IDs to query the GeoNames API.
-- The `populate_location_pairs()` function creates a dictionary that holds the necessary information for each unique sender-receiver pair.
-- Polylines representing correspondences are assigned random colors.
-- When clicking on a polyline, a popup appears displaying information about the correspondence, including the sender's and receiver's names, and the date(s) of the correspondence. If a `<correspDesc>` element contains a `@ref` URL, then the URL will be saved as a link for the respective date in the popup.
-- The script groups the letters based on sender and receiver IDs, ensuring that a sender or receiver is only displayed once when they are at the exact same location.
+- In the script, the function `populate_location_pairs()` is responsible for grouping the letters based on sender and receiver IDs. It creates a dictionary holding the necessary information for each unique sender-receiver pair, ensuring that a sender or receiver is only displayed once when they are at the exact same location.
 
 ## Output
 
-The output is an interactive HTML map with some features.  Senders and receivers are represented by distinct markers (arrow-up for senders, arrow-down for receivers) with polyline connections between sender and receiver locations. You easily can change the map tiles, adjust the offset value in the `add_offset` function to control the marker separation or alter the weight and popup content etc.
+The output is an interactive HTML map with some features. Senders and receivers are represented by distinct markers (arrow-up for senders, arrow-down for receivers) with polyline (randomly colored) connections between sender and receiver locations. When clicking on a polyline, a popup appears displaying information about the correspondence, including the sender's and receiver's names, and the date(s) of the correspondence. If a `<correspDesc>` element contains a `@ref` URL, then the URL will be saved as a link for the respective date in the popup.
