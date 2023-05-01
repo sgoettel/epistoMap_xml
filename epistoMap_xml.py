@@ -51,17 +51,16 @@ def populate_location_pairs(letters):
         key = (row["sender_id"], row["sender_place_lat"], row["sender_place_long"], row["receiver_id"], row["receiver_place_lat"], row["receiver_place_long"])
         if key not in location_pairs:
             location_pairs[key] = {
-                "count": 1,
                 "sender_name": row["sender_name"],
                 "receiver_name": row["receiver_name"],
-                "dates": [row["date_sent"]],
-                "sender_coords": (row["sender_place_lat"], row["sender_place_long"]),
-                "receiver_coords": (row["receiver_place_lat"], row["receiver_place_long"]),
+                "count": 0,
+                "dates": [],
+                "refs": [],
             }
 
-        else:
-            location_pairs[key]["count"] += 1
-            location_pairs[key]["dates"].append(row["date_sent"])
+        location_pairs[key]["count"] += 1
+        location_pairs[key]["dates"].append(row["date_sent"])
+        location_pairs[key]["refs"].append(row["refs"])
     return location_pairs
 
 
@@ -109,14 +108,14 @@ def parse_xml_data(xml_data):
         if sent is None or received is None:
             continue
 
-        # Check for missing persName, placeName, and date elements
-        if (sent.find("tei:persName", namespaces={'tei': 'http://www.tei-c.org/ns/1.0'}) is None and
-            sent.find("tei:orgName", namespaces={'tei': 'http://www.tei-c.org/ns/1.0'}) is None) or \
-           sent.find("tei:placeName", namespaces={'tei': 'http://www.tei-c.org/ns/1.0'}) is None or \
+        # Check for missing persName with @ref, placeName with @ref, and date elements
+        if (sent.find("tei:persName[@ref]", namespaces={'tei': 'http://www.tei-c.org/ns/1.0'}) is None and
+            sent.find("tei:orgName[@ref]", namespaces={'tei': 'http://www.tei-c.org/ns/1.0'}) is None) or \
+           sent.find("tei:placeName[@ref]", namespaces={'tei': 'http://www.tei-c.org/ns/1.0'}) is None or \
            sent.find("tei:date", namespaces={'tei': 'http://www.tei-c.org/ns/1.0'}) is None or \
-           (received.find("tei:persName", namespaces={'tei': 'http://www.tei-c.org/ns/1.0'}) is None and
-            received.find("tei:orgName", namespaces={'tei': 'http://www.tei-c.org/ns/1.0'}) is None) or \
-           received.find("tei:placeName", namespaces={'tei': 'http://www.tei-c.org/ns/1.0'}) is None:
+           (received.find("tei:persName[@ref]", namespaces={'tei': 'http://www.tei-c.org/ns/1.0'}) is None and
+            received.find("tei:orgName[@ref]", namespaces={'tei': 'http://www.tei-c.org/ns/1.0'}) is None) or \
+           received.find("tei:placeName[@ref]", namespaces={'tei': 'http://www.tei-c.org/ns/1.0'}) is None:
            
             continue
 
@@ -154,6 +153,8 @@ def parse_xml_data(xml_data):
             date = date_sent_attributes['notBefore']
         elif 'notAfter' in date_sent_attributes:
             date = date_sent_attributes['notAfter']
+        elif 'from' in date_sent_attributes:
+            date = date_sent_attributes['from']
         else:
             date = date_sent.text
 
@@ -222,7 +223,7 @@ for (sender_id, sender_lat, sender_long, receiver_id, receiver_lat, receiver_lon
 
     # Initialize an empty list to store formatted date strings and add them as URL in popup
     dates_text = []
-    for date, ref in zip(data["dates"], letters["refs"]):
+    for date, ref in zip(data["dates"], data["refs"]):
 
         if ref:
             dates_text.append(f'<a href="{ref[0]}" target="_blank">{date}</a>')
