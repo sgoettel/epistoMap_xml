@@ -27,7 +27,7 @@ You can install these packages using pip:
 ## Input
 
 
-The input XML file should follow the TEI encoding guidelines and contain `<correspDesc>` elements with metadata about the correspondences. Each `<correspDesc>` element should have `<correspAction>` elements for "sent" and "received" actions, including `<persName>`, `<placeName>`, and `<date>` elements. To identify the location of a sender/receiver, it's essential to include a GeoNames URL in the `@ref` attribute of the `<placeName>` element.
+The input XML file should follow the TEI encoding guidelines and contain `<correspDesc>` elements with metadata about the correspondences. Each `<correspDesc>` element should have `<correspAction>` elements for "sent" and "received" actions, including `<persName>`, `<placeName>`, and `<date>` elements. To identify unique sender/receiver and their respective location, it's essential to include any kind of ID in the `@ref` attribute of the `<persName>` and a GeoNames URL in the `@ref` attribute of the `<placeName>` element.
 
 Example input XML structure:
 
@@ -41,8 +41,7 @@ Example input XML structure:
   <correspAction type="received">
     <persName ref="https://www.example.com/person/2">Receiver Name</persName>
     <placeName ref="https://www.geonames.org/654321">Receiver City</placeName>
-    <date when="2022-01-02"/>
-  </correspAction>
+    </correspAction>
 </correspDesc>
 ~~~
 
