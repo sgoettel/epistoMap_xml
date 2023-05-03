@@ -49,10 +49,11 @@ Any `<correspDesc>` element missing essential information is skipped! Otherwise 
 
 ## Processing
 
-- The script reads the input data using pandas and processes it to extract unique sender-receiver pairs. It employs the folium library to create an interactive map with two marker clusters: one for senders and another for receivers.
+- The script reads the input data using pandas and processes it to extract unique sender-receiver pairs. It uses the `@ref` attribute from `<persName>` (or `<orgName>`) elements in the input XML files and processes it as unique identifiers for individuals, which are then used for creating sender and receiver markers in the map visualization.
 - The script allows users to adjust certain constants, such as the `OFFSET` and `POLYLINE_WEIGHT_MULTIPLIER`. The `OFFSET` is used to randomly shift the location of markers on the map, preventing overlapping markers when they are located at the same coordinates. The `POLYLINE_WEIGHT_MULTIPLIER` is a constant used to adjust the thickness of the polylines representing correspondences, with a higher number of correspondences between sender/receiver resulting in a thicker polyline.
 - The script extracts GeoNames IDs from the `@ref` attribute of the `<placeName>` elements in the input XML data. It then uses these IDs to query the GeoNames API.
 - In the script, the function `populate_location_pairs()` is responsible for grouping the letters based on sender and receiver IDs. It creates a dictionary holding the necessary information for each unique sender-receiver pair, ensuring that a sender or receiver is only displayed once when they are at the exact same location.
+- It employs the folium library to create an interactive map
 
 ## Output
 
