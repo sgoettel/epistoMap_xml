@@ -27,7 +27,7 @@ You can install these packages using pip:
 ## Input
 
 
-The input XML file should follow the TEI encoding guidelines and contain <correspDesc> elements with metadata about the correspondences in the Correspondence Metadata Interchange-Format (CMIF). Each <correspDesc> element should have <correspAction> elements for "sent" and "received" actions, including <persName>, <placeName>, and <date> elements. To identify unique sender/receiver and their respective location, it's essential to include any kind of ID in the @ref attribute of the <persName> and a GeoNames URL in the @ref attribute of the <placeName> element. EpistoMap is compatible with CMIF input data, and you can find a vast collection of files on [correspsearch.net](https://correspsearch.net/en/home.html) or their [GitHub repository](https://github.com/correspSearch/csStorage).
+The input XML file should follow the TEI encoding guidelines and contain `<correspDesc>` elements with metadata about the correspondences in the Correspondence Metadata Interchange-Format (CMIF). Each `<correspDesc>` element should have `<correspAction>` elements for "sent" and "received" actions, including `<persName>`, `<placeName>`, and `<date>` elements. To identify unique sender/receiver and their respective location, it's essential to include any kind of ID in the `@ref` attribute of the `<persName>` and a GeoNames URL in the `@ref` attribute of the `<placeName>` element. The script is compatible with CMIF input data, and you can find a vast collection of files on [correspsearch.net](https://correspsearch.net/en/home.html) or their [GitHub repository](https://github.com/correspSearch/csStorage).
 
 Example input XML structure:
 
