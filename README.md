@@ -2,7 +2,7 @@
 
 This script creates an interactive map visualization of letters sent between people from different locations using [Folium](https://python-visualization.github.io/folium/). It reads input data from a XML file, processes it, and generates an HTML file containing the map with sender and receiver markers and polylines connecting them. If your input file is a CSV, consider checking out my other script [epistoMap (CSV)](https://github.com/sgoettel/epistoMap_csv)
 
-<img src="/image/epistomap_humboldt.png" alt="Output of the example XML, edition humboldt digital" width="600" height="500">
+<img src="/image/epistomap_bruemmer.png" alt="Output of the example XML, Nachlass Franz Brümmer" width="600" height="500">
 
 >**Note** While it functions as intended, there are some areas for improvement and fine-tuning that I am working on as a beginner in this field. But since it is not that easy to get a "out of the box solution" for visualizing correspondence, I think it is still a good approach.
 
