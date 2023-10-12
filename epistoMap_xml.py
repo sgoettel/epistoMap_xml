@@ -21,6 +21,8 @@ of a polyline on the map. The weight is proportional to the number
 of letters exchanged between two people, and is calculated by multiplying 
 the number of letters by this constant."""
 
+GEONAMES_BASE_URL = "https://sws.geonames.org/"
+
 def random_color():
     return f"#{''.join([random.choice('0123456789ABCDEF') for _ in range(6)])}"
     
@@ -69,13 +71,13 @@ def get_coordinates_from_place_id(place_id, dry_run):
     if dry_run:
         return 0.0, 0.0
 
-    url = f"https://sws.geonames.org/{place_id}/about.rdf"
+    url = f"{GEONAMES_BASE_URL}{place_id}/about.rdf"
 
     try:
         response = requests.get(url)
         response.raise_for_status()
     except requests.exceptions.RequestException as e:
-        print(f"Error retrieving RDF data from GeoNames: {e}")
+        print(f"Error parsing RDF data from GeoNames for place_id {place_id} and URL {url}: {e}")
         return None, None
 
     try:
@@ -84,9 +86,6 @@ def get_coordinates_from_place_id(place_id, dry_run):
     except etree.XMLSyntaxError as e:
         print(f"Error parsing RDF data from GeoNames: {e}")
         return None, None
-
-    rdf_data = response.content
-    rdf_root = etree.fromstring(rdf_data)
 
     lat_elem = rdf_root.find(".//wgs84_pos:lat", namespaces={'wgs84_pos': 'http://www.w3.org/2003/01/geo/wgs84_pos#'})
     long_elem = rdf_root.find(".//wgs84_pos:long", namespaces={'wgs84_pos': 'http://www.w3.org/2003/01/geo/wgs84_pos#'})
