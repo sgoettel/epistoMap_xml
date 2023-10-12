@@ -1,6 +1,6 @@
 # epistoMap
 
-## Table of Contents
+
 1. [Prerequisites](#prerequisites)
 2. [Input](#input)
 3. [Processing](#processing)
