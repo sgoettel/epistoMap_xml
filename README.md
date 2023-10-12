@@ -1,7 +1,11 @@
 # epistoMap
 
 ## Table of Contents
-- [Prerequisites](#prerequisites)
+1. [Prerequisites](#prerequisites)
+2. [Input](#input)
+3. [Processing](#processing)
+4. [Output](#output)
+5. [Sample Visualizations](#sample-visualizations)
 
 This script creates an interactive map visualization of letters sent between people from different locations using [Folium](https://python-visualization.github.io/folium/). It reads input data from a XML file, processes it, and generates an HTML file containing the map with sender and receiver markers and polylines connecting them. If your input file is a CSV, consider checking out my other script [epistoMap (CSV)](https://github.com/sgoettel/epistoMap_csv)
 
@@ -56,3 +60,9 @@ The script employs the folium library to create an interactive map with two mark
 ## Output
 
 The output is an interactive HTML map with some features.  Senders and receivers are represented by distinct markers (arrow-up for senders, arrow-down for receivers) with polyline connections between sender and receiver locations. You easily can change the map tiles, adjust the offset value in the `add_offset` function to control the marker separation or alter the weight and popup content etc.
+
+## Sample Visualizations
+
+
+[Correspondence of Alexander von Humboldt](https://rawcdn.githack.com/sgoettel/epistoMap_xml/148f08f3d2e1dc4b65db36ab6034e9b972687f77/sample_visualizations/epistoMap_output_avhumboldt_combined.html) ((all CMIFs combined)[https://github.com/correspSearch/csStorage/tree/dev/avhumboldt])
+[Correspondence of Franz Brümmer](https://rawcdn.githack.com/sgoettel/epistoMap_xml/148f08f3d2e1dc4b65db36ab6034e9b972687f77/sample_visualizations/epistoMap_output_bruemmer_nachlass.html)
