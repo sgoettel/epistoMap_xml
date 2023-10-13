@@ -84,7 +84,7 @@ If all goes well, the total number of `<correspDesc>` elements should match betw
 
 Some sample visualizations created using epistoMap; more to come
 
-[Correspondence of Alexander von Humboldt](https://rawcdn.githack.com/sgoettel/epistoMap_xml/148f08f3d2e1dc4b65db36ab6034e9b972687f77/sample_visualizations/epistoMap_output_avhumboldt_combined.html) (all [CMIFs from Humboldt](https://github.com/correspSearch/csStorage/tree/dev/avhumboldt) combined)
+[Correspondence of Alexander von Humboldt](https://rawcdn.githack.com/sgoettel/epistoMap_xml/41b0948c71b324974605669725b50e8a9fc468d8/sample_visualizations/epistoMap_output_avhumboldt_combined.html) (all [CMIFs from Humboldt](https://github.com/correspSearch/csStorage/tree/dev/avhumboldt) combined)
 
 
-[Correspondence of Franz Brümmer](https://rawcdn.githack.com/sgoettel/epistoMap_xml/148f08f3d2e1dc4b65db36ab6034e9b972687f77/sample_visualizations/epistoMap_output_bruemmer_nachlass.html)
+[Correspondence of Franz Brümmer](https://rawcdn.githack.com/sgoettel/epistoMap_xml/41b0948c71b324974605669725b50e8a9fc468d8/sample_visualizations/epistoMap_output_bruemmer_nachlass.html)
