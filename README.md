@@ -9,7 +9,7 @@
 
 This script creates an interactive map visualization of letters sent between people from different locations using [Folium](https://python-visualization.github.io/folium/). It reads input data from a XML file, processes it, and generates an HTML file containing the map with sender and receiver markers and polylines connecting them.
 
-<img src="/image/epistomap_bruemmer.png" alt="Output of CMIF bruemmer_nachlass.xml, Nachlass Franz Brümmer" width="600" height="500">
+<img src="/image/epistomap_bruemmer.png" alt="Output of the example XML, Nachlass Franz Brümmer" width="600" height="500">
 
 **To run the script, simply execute it in your terminal or command prompt:**
 
@@ -20,6 +20,7 @@ After the script finishes running, you'll find the generated HTML files in the s
 **If you want to test one or more XML files**, you can do a dry-run mode, which can be enabled using `--dry-run`. In this mode, the script will parse the input XML files and provide a summary of the number of usable <correspDesc> elements, e.g.
 
 `$ python3 epistoMap_xml.py --dry-run file1.xml file2.xml file3.xml` etc.
+<<<<<< features
 
 If you have multiple [CMIFs](https://correspsearch.net/en/documentation.html) or more than one XML file that you want to visualize, you can use `mergexml.py` to combine all <correspDesc> elements into a single XML file (see [merge XML files](#merge-multiple-cmifxml-files)).
 
@@ -33,7 +34,7 @@ You can install these packages using pip:
 
 ## Input
 
-The input XML (`epistoMap_input.xml`) file should follow the TEI encoding guidelines and contain `<correspDesc>` elements with metadata about the correspondences. Each `<correspDesc>` element should have `<correspAction>` elements for "sent" and "received" actions, including `<persName>`, `<placeName>`, and `<date>` elements. To identify the location of a sender/receiver, it's essential to include a GeoNames URL in the `@ref` attribute of the `<placeName>` element. The script is compatible with CMIF input data, and you can find a vast collection of files on [correspsearch.net](https://correspsearch.net/en/home.html) or their [GitHub repository](https://github.com/correspSearch/csStorage).
+The input XML file should follow the TEI encoding guidelines and contain `<correspDesc>` elements with metadata about the correspondences in the Correspondence Metadata Interchange-Format (CMIF). Each `<correspDesc>` element should have `<correspAction>` elements for "sent" and "received" actions, including `<persName>`, `<placeName>`, and `<date>` elements. To identify unique sender/receiver and their respective location, it's essential to include any kind of ID in the `@ref` attribute of the `<persName>` and a GeoNames URL in the `@ref` attribute of the `<placeName>` element. The script is compatible with CMIF input data, and you can find a vast collection of files on [correspsearch.net](https://correspsearch.net/en/home.html) or their [GitHub repository](https://github.com/correspSearch/csStorage).
 
 Example input XML structure:
 
@@ -47,12 +48,11 @@ Example input XML structure:
   <correspAction type="received">
     <persName ref="https://www.example.com/person/2">Receiver Name</persName>
     <placeName ref="https://www.geonames.org/654321">Receiver City</placeName>
-    <date when="2022-01-02"/>
-  </correspAction>
+    </correspAction>
 </correspDesc>
 ~~~
 
-Any `<correspDesc>` element missing essential information, such as `<persName>`, `<placeName>`, or `<date>`, is skipped! Otherwise there wouldn't be an accurate visualization.
+Any `<correspDesc>` element missing essential information is skipped! Otherwise there wouldn't be an accurate visualization.
 
 ## Processing
 
