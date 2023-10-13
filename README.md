@@ -20,7 +20,6 @@ After the script finishes running, you'll find the generated HTML files in the s
 **If you want to test one or more XML files**, you can do a dry-run mode, which can be enabled using `--dry-run`. In this mode, the script will parse the input XML files and provide a summary of the number of usable <correspDesc> elements, e.g.
 
 `$ python3 epistoMap_xml.py --dry-run file1.xml file2.xml file3.xml` etc.
-<<<<<< features
 
 If you have multiple [CMIFs](https://correspsearch.net/en/documentation.html) or more than one XML file that you want to visualize, you can use `mergexml.py` to combine all <correspDesc> elements into a single XML file (see [merge XML files](#merge-multiple-cmifxml-files)).
 
@@ -34,7 +33,9 @@ You can install these packages using pip:
 
 ## Input
 
-The input XML file should follow the TEI encoding guidelines and contain `<correspDesc>` elements with metadata about the correspondences in the Correspondence Metadata Interchange-Format (CMIF). Each `<correspDesc>` element should have `<correspAction>` elements for "sent" and "received" actions, including `<persName>`, `<placeName>`, and `<date>` elements. To identify unique sender/receiver and their respective location, it's essential to include any kind of ID in the `@ref` attribute of the `<persName>` and a GeoNames URL in the `@ref` attribute of the `<placeName>` element. The script is compatible with CMIF input data, and you can find a vast collection of files on [correspsearch.net](https://correspsearch.net/en/home.html) or their [GitHub repository](https://github.com/correspSearch/csStorage).
+The input XML file should follow the TEI encoding guidelines and contain `<correspDesc>` elements with metadata about the correspondences. While the Correspondence Metadata Interchange-Format (CMIF) is recommended for the input XML file, any XML file that contains <correspDesc> elements according to the TEI encoding guidelines will also work. Each `<correspDesc>` element should have `<correspAction>` elements for "sent" and "received" actions, including `<persName>`, `<placeName>`, and `<date>` elements. To identify unique sender/receiver and their respective location, it's essential to include any kind of ID in the `@ref` attribute of the `<persName>` and a GeoNames URL in the `@ref` attribute of the `<placeName>` element.
+
+As previously mentioned, the script is compatible with CMIF input data, and you can find a vast collection of files on [correspsearch.net](https://correspsearch.net/en/home.html) or the [GitHub repository](https://github.com/correspSearch/csStorage).
 
 Example input XML structure:
 
