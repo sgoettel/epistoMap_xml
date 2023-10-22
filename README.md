@@ -69,7 +69,7 @@ The output is an interactive HTML map with some features. Senders and receivers 
 
 ## Merge multiple CMIF/XML files
 
-Want to visualize multiple CMIFs? Use `mergexml.py`. This script combines all `<correspDesc>` elements from XML files in a single directory.
+If you want to visualize multiple CMIFs (ergo XML files), you can use `mergexml.py`. This script combines all `<correspDesc>` elements from XML files in a single directory.
 
 How it works:
 
